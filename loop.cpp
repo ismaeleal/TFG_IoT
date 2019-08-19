@@ -1,4 +1,5 @@
 #include<Arduino.h>
+#include "Globales.h" 
 #define SAMPLING_FREQUENCY_TOMA 1000 // Hz
 #define SAMPLING_FREQUENCY_ENVIO 15 //minutos
 
@@ -14,13 +15,15 @@
 //  FUNCION modificacion de variables //
 //----------------------------------- //
 
+double lectura_c = 0 ;
+double envio_c = 0;
 void setup_modificaciones() {
-  double lectura_c = round(1000000 * (1 / SAMPLING_FREQUENCY_TOMA));
-  double envio_c =  round(1000000 * (60 * SAMPLING_FREQUENCY_ENVIO));
+  lectura_c = round(1000000 * (1 / SAMPLING_FREQUENCY_TOMA));
+  envio_c =  round(1000000 * (60 * SAMPLING_FREQUENCY_ENVIO));
 }
 void modificacionVariableTiempo() {
-//  lectura_u = lectura_c - ( micros() - lectura_time);
-  //envio_u = envio_c - ( micros() - envio_time);
+	lectura_u = lectura_c - ( micros() - lectura_time);
+ envio_u = envio_c - ( micros() - envio_time);
 }
 
 //------------------------------------//
