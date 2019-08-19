@@ -1,5 +1,12 @@
 #include<Arduino.h>
-#include "Globales.h" 
+#include <LowPower.h>
+#include "Globales.h"
+#include "funciones.h"
+#include "envio.h"
+#include "loop.h"
+#include "pasos.h"
+#include "rumia.h"
+
 #define SAMPLING_FREQUENCY_TOMA 1000 // Hz
 #define SAMPLING_FREQUENCY_ENVIO 15 //minutos
 
@@ -30,20 +37,21 @@ void modificacionVariableTiempo() {
 //  FUNCION DE LECTURA DE MOVIMIENTOS //
 //----------------------------------- //
 int contador_rumia = 0;
-int rumia_int[SAMPLES] = 0;
-int vImag[SAMPLES] = 0;
+
+int rumia_int[SAMPLES] ;
+int vImag[SAMPLES] ;
 
 
 
 void lectura_sensores() {
-  int datos[3] = {0,0,0};
+  int* datos ;
   datos  = lectura_movimiento();// lectura de los movimientos
   
   offax = offax + datos[0];
   offay = offay + datos[1];
   offaz = offaz + datos[2];
 
-  rumia_int[contador_rumia] = valor_micro;// vector de rumia
+  //rumia_int[contador_rumia] = valor_micro;// vector de rumia
   
   vImag[contador_rumia] = 0; // vector de rumia
 }
@@ -145,7 +153,7 @@ void calcula_valores_medios() {
 
 
 //tiempo despues de 10 s//salida
-
+int vector_u_escenas[12] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // vector para las ultimas 12 escenas
 
 void manipulacion_datos() {
   int estado_actual = rumia;
@@ -159,13 +167,13 @@ void manipulacion_datos() {
     estado_actual = correr;
     estado = 3;
   }
-  if (estado_ectual < reposo) {
+  if (estado_actual < reposo) {
     estado_actual = reposo;
     estado = 4;
   }
 
   for (int i = 1; i < 12; i++) {
-    vector_u_escenas[i] = vector_u_escenas[i - 1]
+	  vector_u_escenas[i] = vector_u_escenas[i - 1];
   }
   vector_u_escenas[0] = estado;
 
@@ -217,23 +225,23 @@ void preparacion_datos() {
   Datos[10] = highByte(comiendo_final);
   Datos[11] = lowByte(comiendo_final);
   // gps 8
-  Datos[12] =;
-  Datos[13] =;
-  Datos[14] =;
-  Datos[15] =;
-  Datos[16] =;
-  Datos[17] =;
-  Datos[18] =;
-  Datos[19] =;
+  Datos[12] =0;
+  Datos[13] =0;
+  Datos[14] =0;
+  Datos[15] =0;
+  Datos[16] =0;
+  Datos[17] =0;
+  Datos[18] =0;
+  Datos[19] =0;
   // bateria
-  Datos[20] =;
+  Datos[20] =0;
   // otros
 
-  Datos[21] =;
-  Datos[22] =;
-  Datos[23] =;
-  Datos[24] =;
-  Datos[25] =;
+  Datos[21] =0;
+  Datos[22] =0;
+  Datos[23] =0;
+  Datos[24] =0;
+  Datos[25] =0;
 
   rumia_final = 0;
   caminar_final = 0;
@@ -255,30 +263,34 @@ void envio_datos() {
 //-------------------------------------------//
 //variables compartidas
 int repetir = 0; // mide la posibilidad de repetir dormir
-int vector_u_escenas[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // vector para las ultimas 12 escenas
  
 int ultima = 0;
 //funcion
 void calculatiempoDormir() {
+
   int suma_escenas = 0;// para la comprobacion de escenas
+  for (int i = 0; i < 11; i++) {
+	  vector_u_escenas[i] = vector_u_escenas[i + 1];
+  
+  }
   if (repetir == 0) {
     for (int i = 0; i < 12; i++) {
-      suma_escenas = suma_escenas + vector_u_escenas[i]
+		suma_escenas = suma_escenas + vector_u_escenas[i];
     }
-    if (suma_excenas == vector_u_escenas[0] * 12 ) {
+    if (suma_escenas == vector_u_escenas[0] * 12 ) {
       ultima = vector_u_escenas[11];
       dormir = 10;
       repetir = 1;
     }
   }
   else {
-    if ( vector_u_escenas[i] == ultima ) {
+    if ( vector_u_escenas[11] == ultima ) {
       repetir ++;
       dormir = 10 * repetir;
     }
     else {
       repetir = 0;
-      dormir = 0
+	  dormir = 0;
     }
   }
 }

@@ -11,3 +11,7 @@ void calculatiempoDormir();
 void Dormir(); 
 void modificacionVariableTiempo();
 void tomaGPS();
+bool rumia_f();
+bool caminar_f();
+bool correr_f();
+bool reposo_f();
