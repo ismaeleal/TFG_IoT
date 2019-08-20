@@ -1,6 +1,6 @@
 
 
-
+#include "declaraciones.h"
 #include "Globales.h"
 #include "funciones.h"
 #include "envio.h"
@@ -8,9 +8,7 @@
 #include "pasos.h"
 #include "rumia.h"
 
-#define timeEscena 10 //en segundos // cada 10 segundo se analiza una escena
-int contador = 0;
-int contador_rumia = 0;
+
 void setup() {
 	setup_modificaciones();
 	setup_movimiento();

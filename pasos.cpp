@@ -1,26 +1,8 @@
 #include<Arduino.h>
 #include<Wire.h>
+#include "declaraciones.h"
 
-const int MPU_addr = 0x68; // I2C address of the MPU-6050
 
-long tiempo_prev;
-float dt;
-float ang_x, ang_y;
-float ang_x_prev, ang_y_prev;
-
-//valor para calculo de paso
-
-float nuevo_pasos;
-float viejo_pasos;
-int pre_incre;
-int pre_decre;
-int pre_decre_a;
-int pre_incre_a;
-int fin_pasos;
-int constador_pasos;
-double time1_pasos;
-double time_final_pasos;
-double time2_pasos;
 
 //------------------------------------------------------------------//
 //Toma de datos

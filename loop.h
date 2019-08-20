@@ -10,8 +10,3 @@ void envio_datos();
 void calculatiempoDormir();
 void Dormir(int sec);
 
-int rumia_final = 0;
-int caminar_final = 0;
-int correr_final = 0;
-int reposo_final = 0;
-int comiendo_final = 0;

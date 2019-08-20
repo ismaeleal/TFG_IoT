@@ -6,6 +6,7 @@
 #include "loop.h"
 #include "pasos.h"
 #include "rumia.h"
+#include "declaraciones.h"
 
 #define SAMPLING_FREQUENCY_TOMA 1000 // Hz
 #define SAMPLING_FREQUENCY_ENVIO 15 //minutos
@@ -22,8 +23,6 @@
 //  FUNCION modificacion de variables //
 //----------------------------------- //
 
-double lectura_c = 0 ;
-double envio_c = 0;
 void setup_modificaciones() {
   lectura_c = round(1000000 * (1 / SAMPLING_FREQUENCY_TOMA));
   envio_c =  round(1000000 * (60 * SAMPLING_FREQUENCY_ENVIO));
@@ -36,10 +35,7 @@ void modificacionVariableTiempo() {
 //------------------------------------//
 //  FUNCION DE LECTURA DE MOVIMIENTOS //
 //----------------------------------- //
-int contador_rumia = 0;
 
-int rumia_int[SAMPLES] ;
-int vImag[SAMPLES] ;
 
 
 
@@ -59,11 +55,7 @@ void lectura_sensores() {
 //  FUNCION DE calculo de escena      //
 //----------------------------------- //
 //tiempo antes de 10 s entrada
-int rumia = 0;
-int caminar = 0;
-int correr = 0;
-int reposo = 0;
-int comiendo = 0;
+
 
 void calcula_escena() {
   offax = offax / SAMPLES;
@@ -87,13 +79,6 @@ void calcula_escena() {
     reposo++;
   }
 }
-
-float axMAX , ayMAX, azMAX, gxMAX, gyMAX;
-float axMIN, ayMIN , azMIN , gxMIN , gyMIN;
-float axMIN_p, ayMIN_p , azMIN_p , gxMIN_p , gyMIN_p;
-float axMAX_p , ayMAX_p, azMAX_p, gxMAX_p, gyMAX_p;
-
-int calculoMedia = 0;
 
 void calcula_valores_medios() {
 
@@ -152,8 +137,6 @@ void calcula_valores_medios() {
 //-----------------------------------//
 
 
-//tiempo despues de 10 s//salida
-int vector_u_escenas[12] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // vector para las ultimas 12 escenas
 
 void manipulacion_datos() {
   int estado_actual = rumia;
@@ -203,8 +186,7 @@ void tomaGPS_f() {
 //----------------------------------------------------------------------------------//
 //                      PREPARACION DE ENVIO                                        //
 //----------------------------------------------------------------------------------//
-byte Datos[51];
-int identificacion;
+
 
 void preparacion_datos() {
   // identificacion 2
@@ -262,9 +244,7 @@ void envio_datos() {
 //     Calculo del tiempo para Dormir        //
 //-------------------------------------------//
 //variables compartidas
-int repetir = 0; // mide la posibilidad de repetir dormir
- 
-int ultima = 0;
+
 //funcion
 void calculatiempoDormir() {
 

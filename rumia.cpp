@@ -1,11 +1,7 @@
-#include <arduinoFFT.h>
-#include<Arduino.h>
-#include "Globales.h"
 
-int Tamano_dato = 4;
-int dato = 100;
-int vector_dato_rumia[100][3];
-int vector_runia[4] = 0;
+#include<Arduino.h>
+#include "declaraciones.h"
+
 
 bool rumia_analisis() {
   int i = 0;
@@ -15,7 +11,7 @@ bool rumia_analisis() {
   FFT.ComplexToMagnitude( rumia_int, vImag, SAMPLES);
   double peak = FFT.MajorPeak( rumia_int, SAMPLES, SAMPLING_FREQUENCY);
   for (int i = 1; i < tamano_dato; i++) {
-    vector_runia[i] = vector_runia[i - 1]
+	  vector_runia[i] = vector_runia[i - 1];
   }
 
   vector_runia[0] = peak;
