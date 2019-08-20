@@ -1,9 +1,6 @@
 
 
-#include <RFM69_OTA.h>
-#include <RFM69_ATC.h>
-#include <RFM69registers.h>
-#include <RFM69.h>
+
 #include "Globales.h"
 #include "funciones.h"
 #include "envio.h"

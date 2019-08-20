@@ -294,7 +294,7 @@ void calculatiempoDormir() {
     }
   }
 }
-
+/*
 void Dormir(int sec) {
 
   while (sec >= 8) {
@@ -314,3 +314,4 @@ void Dormir(int sec) {
     sec -= 1;
   }
 }
+*/

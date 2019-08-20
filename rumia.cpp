@@ -1,6 +1,6 @@
 #include <arduinoFFT.h>
 #include<Arduino.h>
-
+#include "Globales.h"
 
 int Tamano_dato = 4;
 int dato = 100;
