@@ -1,19 +1,35 @@
-#define SAMPLES 128 // frecuencia de rastreo
+#include <arduinoFFT.h>
+#include "Globales.h"
+#include "funciones.h"
+#include "envio.h"
+#include "loop.h"
+#include "pasos.h"
+#include "rumia.h"
+
+
+#define SAMPLES 128 // frecuencia de rastreo y media en HZ
 #define SAMPLING_FREQUENCY_TOMA 1000 // Hz
-#define SAMPLING_FREQUENCY_ENVIO 15 //minutos
+#define SAMPLING_FREQUENCY_ENVIO 15 //frecuencia de envio de datos en minutos
 #define SAMPLING_FREQUENCY 128
 #define timeEscena 10 //en segundos // cada 10 segundo se analiza una escena
-#include <arduinoFFT.h>
 
-int contador = 0;
-int contador_rumia = 0;
-int tamano_dato = 50; 
-arduinoFFT FFT = arduinoFFT();
-// variables  de tiempo
+// Variables para el control del tiempo
 double lectura_u = 0;
 double envio_u = 0;
 double lectura_time = 0;
 double envio_time = 0;
+
+int contador_toma = 0; // contador para control de la cantidad de toma de muestra
+double contador = 0; // cuantas veces de a tomado el samples para saber cuando llea a 
+double valor_escena = ((SAMPLING_FREQUENCY_TOMA / SAMPLES) * timeEscena); // calculo para el tiempo de excena
+
+int dormir = 0;
+
+
+
+int tamano_dato = 50; 
+arduinoFFT FFT = arduinoFFT();
+// variables  de tiempo
 int dormir = 0;
 float offax, offay, offaz;
 float axMEDIA, ayMEDIA, azMEDIA;

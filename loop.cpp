@@ -49,7 +49,7 @@ void lectura_sensores() {
 
   //rumia_int[contador_rumia] = valor_micro;// vector de rumia
   
-  vImag[contador_rumia] = 0; // vector de rumia
+  vImag[contador_toma] = 0; // vector de rumia
 }
 //------------------------------------//
 //  FUNCION DE calculo de escena      //

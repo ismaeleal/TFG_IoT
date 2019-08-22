@@ -1,33 +1,26 @@
 
 
 #include "declaraciones.h"
-#include "Globales.h"
-#include "funciones.h"
-#include "envio.h"
-#include "loop.h"
-#include "pasos.h"
-#include "rumia.h"
+
 
 
 void setup() {
-	setup_modificaciones();
-	setup_movimiento();
+	setup_modificaciones();// configuracion  de variable 
+	setup_movimiento();// inicializacion  de sensores de movimiento
 }
+
 void loop() {
-	modificacionVariableTiempo();//modificacion de variables de tiempo
+	modificacionVariableTiempo();
 	if (lectura_u <= 0) {
-		lectura_sensores();// lectura de sensores
-		contador_rumia++;
+		lectura_sensores();
+		contador_toma++;
 		lectura_time = micros();
-
-
-
-		if (contador_rumia == SAMPLES) {
-			contador_rumia = 0;
+		if (contador_toma == SAMPLES) {
+			contador_toma = 0;
 			contador++;
 			calcula_escena();
-			if (contador > timeEscena * 100) {
-				manipulacion_datos(); // manipulacion de datos
+			if (contador > valor_escena ) {
+				manipulacion_datos(); 
 				calculatiempoDormir();
 				contador = 0;
 			}
