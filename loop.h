@@ -8,5 +8,5 @@ void tomaGPS_f();
 void preparacion_datos();
 void envio_datos();
 void calculatiempoDormir();
-void Dormir(int sec);
+
 

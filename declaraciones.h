@@ -1,4 +1,4 @@
-#include <arduinoFFT.h>
+
 #include "Globales.h"
 #include "funciones.h"
 #include "envio.h"
@@ -6,8 +6,8 @@
 #include "pasos.h"
 #include "rumia.h"
 
+#include "arduinoFFT.h"
 
-#define SAMPLES 128 // frecuencia de rastreo y media en HZ
 #define SAMPLING_FREQUENCY_TOMA 1000 // Hz
 #define SAMPLING_FREQUENCY_ENVIO 15 //frecuencia de envio de datos en minutos
 #define SAMPLING_FREQUENCY 128
@@ -19,33 +19,42 @@ double envio_u = 0;
 double lectura_time = 0;
 double envio_time = 0;
 
+const uint16_t SAMPLES = 64; // frecuencia de rastreo y media en HZ
 int contador_toma = 0; // contador para control de la cantidad de toma de muestra
 double contador = 0; // cuantas veces de a tomado el samples para saber cuando llea a 
 double valor_escena = ((SAMPLING_FREQUENCY_TOMA / SAMPLES) * timeEscena); // calculo para el tiempo de excena
 
 int dormir = 0;
 
-
-
-int tamano_dato = 50; 
+// FFT ( rumia analisis)
 arduinoFFT FFT = arduinoFFT();
+
+double rumia_int[SAMPLES];
+double vImag[SAMPLES];
+int vector_runia[4] = { 0,0,0,0 };
+int Tamano_dato = 3;
+const int dato = 100;
+int vector_dato_rumia[dato][3];// vector para el analisis de la rumia rellenar con el sonido de romia
+
+// rumia 
+int analisis = 50;// positivos
+bool analisis_rumia[50];
+int contador_rumia_suma = 0;
+float porcentaje = 0.80;// porcentaje para das positivo a rumia
+
+
+// pasos
+
 // variables  de tiempo
-int dormir = 0;
 float offax, offay, offaz;
 float axMEDIA, ayMEDIA, azMEDIA;
 
-
-int Tamano_dato = 4;
-int dato = 100;
-int vector_dato_rumia[100][3];
-int vector_runia[4] = { 0,0,0,0 };
 
 const int MPU_addr = 0x68; // I2C address of the MPU-6050
 
 long tiempo_prev;
 float dt;
-float ang_x, ang_y;
-float ang_x_prev, ang_y_prev;
+
 
 //valor para calculo de paso
 
@@ -73,8 +82,7 @@ double lectura_c = 0;
 double envio_c = 0;
 
 
-int rumia_int[SAMPLES];
-int vImag[SAMPLES];
+
 
 int rumia = 0;
 int caminar = 0;
@@ -102,9 +110,9 @@ int repetir = 0; // mide la posibilidad de repetir dormir
 
 int ultima = 0;
 
-int analisis = 50;
-float porcentaje = 0.80;
-bool analisis_rumia[50];
+
+
+
 
 
 float minimo_caminar = 0;

@@ -12,7 +12,7 @@
 
 bool rumia_f() {
 
-	int contador_rumia_suma = 0;
+	
 	for (int i = 1; i < analisis; i++) {
 		analisis_rumia[i] = analisis_rumia[i - 1];
 	}

@@ -25,7 +25,7 @@ int* lectura_movimiento() {
   Wire.endTransmission(false);
   Wire.requestFrom(MPU_addr, 14, true); // request a total of 14 registers
 
-  int datos[7] = {0, 0, 0};
+  int datos[3] = {0, 0, 0};
   datos[0] = Wire.read() << 8 | Wire.read();
   datos[1] = Wire.read() << 8 | Wire.read();
   datos[2] = Wire.read() << 8 | Wire.read();
