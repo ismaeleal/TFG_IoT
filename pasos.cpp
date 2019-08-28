@@ -15,11 +15,9 @@ void setup_movimiento() {
 //  Wire.write(0);     // set to zero (wakes up the MPU-6050)
   Wire.endTransmission(true);
   Serial.begin(9600);
-
 }
 
 int* lectura_movimiento() {
-
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
   Wire.endTransmission(false);
@@ -33,9 +31,7 @@ int* lectura_movimiento() {
   return datos;
 }
 
-
 //lectura de datos
-
 
 int analisis_alta(float valor, float nuevo, float viejo, float media, float superior, float diferencia, int pre_decre, int pre_incre, int pre_a, int contador, int fin , double time1, double time_final,double time_valido) {
   float Umbral = (superior - media ) + superior;
@@ -79,14 +75,11 @@ int analisis_alta(float valor, float nuevo, float viejo, float media, float supe
     fin = 2;
     time_final = micros();
     contador = 0;
-
-    
   }
   else if (fin == 1) {
     fin = 0;
-
   }
-  if (fin == 2 and time_valido >  (time_final - time1) and (time_valido*130) <  (time_final - time1)  ){
+  if ((fin == 2) and ( time_valido >  (time_final - time1)) and (time_valido*130) <  (time_final - time1)  ){
     fin =1;
     }
     return fin;
